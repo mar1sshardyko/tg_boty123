@@ -1,20 +1,18 @@
-import cv2
-from PIL import Image
-image_path = 'cat.jpeg'
-cat_face_cascade = cv2.CascadeClassifier('haarcascade_frontalcatface_extended.xml')
-image = cv2.imread(image_path)
-cat_face = cat_face_cascade.detectMultiScale(image)
-cat = Image.open(image_path)
-glasses = Image.open('glasses.png')
-cat = cat.convert("RGBA")
-glasses = glasses.convert("RGBA")
-shlyapa = Image.open('shlyapa.png')
-cat = cat.convert("RGBA")
-shlyapa = shlyapa.convert("RGBA")
-for (x,y,w,h) in cat_face:
-    glasses = glasses.resize((w, int(h/3)))
-    cat.paste(glasses, (x, int(y+h/4)), glasses)
-    cat.save("cat_with_glasses.png")
-    cat_with_glasses = cv2.imread("cat_with_glasses_and_shlyapa.png")
-    cv2.imshow("Cat_with_glasses", cat_with_glasses)
-    cv2.waitKey()
+import urllib.request
+opener = urllib.request.build_opener()
+response =  opener.open ("https://vk.com/")
+print (response.read())
+print("=======================================")
+#кхурс dollar
+import requests
+res_parse_list = []
+response = requests.get('https://minfin.com.ua/currency/')
+response_text = response.text.split("<span>")
+for parse_elem_1 in res_parse_list:
+        if parse_elem_1.startswith('$'):
+            #print(parse_elem_1)
+            for parse_elem_2 in parse_elem_1.split('</span>'):
+                    if parse_elem_2.startswith('$') and parse_elem_2[1].isdigit():
+                            res_parse_list.append(parse_elem_2)
+dollar = res_parse_list[0]
+print(dollar)
